@@ -1,0 +1,36 @@
+.card {
+  position: relative;
+}
+
+.card .card__front {
+  transform: rotateY(90deg);
+  position: absolute;
+  transition: all ease-in .2s;
+}
+
+.card__flipped .card__front {
+  transform: rotateY(0deg);
+  transition-delay: .2s;
+}
+
+.card .card__cover {
+  transition-delay: .2s;
+  transition: all ease-in .2s;
+}
+
+.card__flipped .card__cover {
+  transform: rotateY(90deg);
+  transition-delay: 0;
+}
+
+.card__answer {
+  visibility: hidden;
+}
+
+.card__answer_active {
+  visibility: block;
+}
+
+.card__cover_disabled {
+  opacity: .4;
+}
