@@ -3,7 +3,7 @@ import './Card.css';
 import cover from '../../images/cover.png';
 
 
-function Card ({question, answer, hint, isChosen, isDisabled}) {
+function Card ({question, answer, hint, isChosen, disabled}) {
 
   const [isClicked, setIsClicked] = useState(false);
 
@@ -15,7 +15,7 @@ function Card ({question, answer, hint, isChosen, isDisabled}) {
       <div className='card'>
         <div className={isChosen ? 'card__flipped' : ''}>
           <div className='card__front'>
-            {isDisabled ? 
+            {disabled ? 
               <img className='card__cover_disabled' 
               src={cover} 
               alt='card cover'/> :
