@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './Main.css';
 import Card from '../Card/Card';
 import {initialQuestions} from '../../utils/constants'
+import Timer from '../Timer/Timer';
 
 function Main () {
   const [gameScore, setGameScore] = useState(0);
@@ -10,12 +11,25 @@ function Main () {
   const [cards, setCards] = useState([]);
   const [chosenCardIdx, setChosenCardIdx] = useState(-1);
   const [disabledCardsList, setDisabledCardsList] = useState([]);
+  const [isTimerActive, setTimerIsActive] = useState(false);
+  const [seconds, setSeconds] = useState(0);
 
-  const isDisabled = (card) => disabledCardsList.some(c => {
-    debugger
-    return c.id === card.id;
+  const isDisabled = (testCardIdx) => disabledCardsList.some(disabledCardIdx => {
+    return testCardIdx === disabledCardIdx;
   });
-  // const disabled = disabledCardsList.indexOf(chosenCardIdx)
+
+  useEffect(() => {
+      let interval = null;
+      if (isTimerActive) {
+        interval = setInterval(() => {
+          setSeconds(seconds => seconds + 1);
+        }, 1000);
+      } else if (!isTimerActive && seconds !== 0) {
+        clearInterval(interval);
+      }
+      return () => clearInterval(interval);
+    }, [isTimerActive, seconds])
+
   const rightAnswer = 'Yes';
   const wrongAnswer = 'No';
   
@@ -27,19 +41,31 @@ function Main () {
       setChosenCardIdx(-1);
       setGameScore(0);
       setPlayerScore(0);
+      setDisabledCardsList([]);
   }
 
   const getQuestion = () => {
     const question = Math.floor(Math.random()*cards.length);
     setChosenCardIdx(question);
+    setTimerIsActive(true);
   }
 
-  const handleCheckAnswer = () => {
-    debugger
+  useEffect(() => {
+    if (seconds === 3)
+    setTimerIsActive(false);
+  }, [isTimerActive, seconds])
+
+  const handleRightAnswer = () => {
     const index = chosenCardIdx;
-    rightAnswer ?
-      setPlayerScore(prevPlScore => prevPlScore+1) :
-      setGameScore(prevGScore => prevGScore+1)
+    setPlayerScore(prevPlScore => prevPlScore+1);
+    const updatedDisabledCardsList = [...disabledCardsList, index];
+    setDisabledCardsList(updatedDisabledCardsList);
+    console.log('updatedDisabledCardsList', updatedDisabledCardsList);
+  }
+
+  const handleWrongAnswer = () => {
+    const index = chosenCardIdx;
+    setGameScore(prevGScore => prevGScore+1);
     const updatedDisabledCardsList = [...disabledCardsList, index];
     setDisabledCardsList(updatedDisabledCardsList);
   }
@@ -51,28 +77,34 @@ function Main () {
   return (
     <div className='main'>
       <h1 className='main__title'>Game vs You</h1>
-      <p className='main__description'>This quiz is a fun and unique experience for a fun home party with your friends. All questions do not assume that you know the answer like in most quizes, but invite you to think and analyze and come to the correct answer yourself.</p>
-      <button className='main__button' onClick={shuffleQuestions}>Let's the game begin!</button>
-      <button className='main__button' onClick={getQuestion}>Choose the question</button>
-      <p>Score: {gameScore} : {playerScore}</p>
+      <p className='main__score'>Score: {gameScore} : {playerScore}</p>
+      {/* <p className='main__description'>This quiz is a fun and unique experience for a fun home party with your friends. All questions do not assume that you know the answer like in most quizes, but invite you to think and analyze and come to the correct answer yourself.</p> */}
+      <button className='button main__button-newquestion' onClick={getQuestion}>Choose the question</button>
+      <Timer 
+        seconds={seconds} 
+      />
       <div className='main__grid'> {
         cards.map((card, index) => (
           <Card 
-            key={card.id}
+            key={index}
             card={card} 
             question={card.question}
             answer={card.answer}
             hint={card.hint}
             getQuestion={getQuestion}
             isChosen={chosenCardIdx === index}
-            disabled={isDisabled}
+            disabled={isDisabled(index)}
           />
         ))}
       </div>
       <p className='main__answer-check'>Is it your answer?</p>
-      <button className='main__button' onClick={handleCheckAnswer}>{rightAnswer}</button>
-      <button className='main__button' onClick={handleCheckAnswer}>{wrongAnswer}</button>
-      {/* <Timer />  */}
+      <div className='main__button-answer-wrapper'>
+        <button className='button main__button-answer' onClick={handleRightAnswer}>{rightAnswer}</button>
+        <button className='button main__button-answer' onClick={handleWrongAnswer}>{wrongAnswer}</button>
+      </div>
+      <div className='main__button-newgame-wrapper'>
+        <button className='button main__button-newgame' onClick={shuffleQuestions}>Next game {'>'}></button>
+      </div>
     </div>
   );
 }

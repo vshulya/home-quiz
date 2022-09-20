@@ -1,6 +1,74 @@
 .main__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  grid-template-columns: repeat(4, 200px);
   grid-template-rows: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px;
+}
+
+.main__title {
+  margin: 0;
+  padding-top: 20px;
+}
+
+.main__score {
+  margin: 0;
+  padding-top: 10px;
+  font-size: 22px;
+}
+
+.main__button-newquestion {
+  margin-top: 20px;
+  background: #fff;
+  border: none;
+  border-radius: 2px;
+  color: #000;
+  font-size: 18px;
+  height: 50px;
+  line-height: 22px;
+  padding: 0;
+  text-align: center;
+  width: 358px;
+}
+
+.main__answer-check {
+  margin: 20px 0 0 0;
+}
+
+.main__button-answer-wrapper {
+  justify-content: center;
+  display: flex;
+  gap: 5px;
+}
+
+.main__button-answer {
+  margin-top: 10px;
+  width: 129px;
+  background: #fff;
+  border: none;
+  border-radius: 2px;
+  color: #000;
+  font-size: 18px;
+  height: 50px;
+  line-height: 22px;
+  padding: 0;
+  text-align: center;
+}
+
+.main__button-newgame-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main__button-newgame {
+  margin-top: 10px;
+  width: 129px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  height: 50px;
+  line-height: 22px;
+  padding: 0;
+  text-align: center;
 }
