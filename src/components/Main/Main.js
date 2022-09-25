@@ -11,8 +11,10 @@ function Main () {
   const [cards, setCards] = useState([]);
   const [chosenCardIdx, setChosenCardIdx] = useState(-1);
   const [disabledCardsList, setDisabledCardsList] = useState([]);
-  const [isTimerActive, setTimerIsActive] = useState(false);
+  const [isTimerActive, setIsTimerActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
+  const [isTimeForAnswer, setIsTimeForAnswer] = useState(false);
+
 
   const isDisabled = (testCardIdx) => disabledCardsList.some(disabledCardIdx => {
     return testCardIdx === disabledCardIdx;
@@ -47,13 +49,18 @@ function Main () {
   const getQuestion = () => {
     const question = Math.floor(Math.random()*cards.length);
     setChosenCardIdx(question);
-    setTimerIsActive(true);
+    setIsTimerActive(true);
   }
 
   useEffect(() => {
     if (seconds === 3)
-    setTimerIsActive(false);
-  }, [isTimerActive, seconds])
+    setIsTimerActive(false);
+  }, [seconds])
+
+  useEffect(() => {
+    if (seconds === 3)
+    setIsTimeForAnswer(true);
+  }, [isTimerActive])
 
   const handleRightAnswer = () => {
     const index = chosenCardIdx;
@@ -82,6 +89,7 @@ function Main () {
       <button className='button main__button-newquestion' onClick={getQuestion}>Choose the question</button>
       <Timer 
         seconds={seconds} 
+        isTimeForAnswer={isTimeForAnswer}
       />
       <div className='main__grid'> {
         cards.map((card, index) => (
