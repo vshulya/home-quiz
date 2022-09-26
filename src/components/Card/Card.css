@@ -48,7 +48,6 @@
   font-size: 13px;
   padding: 0;
 }
-
 .card__answer-button {
   margin: 5px 5px 0 5px;
   background: #fff;
@@ -60,6 +59,10 @@
   text-align: center;
   width: 140px;
   height: 22px;
+}
+
+.card__answer-button_hidden {
+  visibility: hidden;
 }
 
 .card__answer {

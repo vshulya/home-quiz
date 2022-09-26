@@ -1,5 +1,5 @@
 .main__grid {
-  padding-top: 5px;
+  padding-top: 10px;
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(4, 200px);

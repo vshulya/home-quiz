@@ -1,3 +1,10 @@
+.timer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .timer__time {
   margin: 0;
   padding-top: 10px;
@@ -8,6 +15,12 @@
   padding-top: 5px;
 }
 
-.timer__text_hidden {
-  visibility: hidden;
+.timer .timer__text {
+  transform: rotateY(90deg);
+  transition: all ease-in .2s;
+}
+
+.timer__text_active .timer__text {
+  transform: rotateY(0deg);
+  transition-delay: .2s;
 }

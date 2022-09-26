@@ -3,9 +3,20 @@ import './Card.css';
 import cover from '../../images/cover.jpg';
 
 
-function Card ({question, answer, hint, isChosen, disabled}) {
+function Card ({question, answer, hint, isChosen, disabled, isTimeForAnswer}) {
 
   const [isClicked, setIsClicked] = useState(false);
+  const [showCheckAnswer, setShowCheckAnswer] = useState(false);
+
+  useEffect(() => {
+    if (isTimeForAnswer) {
+      setTimeout(() => {
+        setShowCheckAnswer(true);
+      }, 2000); 
+    } else {
+      setShowCheckAnswer(false);
+    }
+  }, [isTimeForAnswer])
 
   const handleAnswerCheck = () => {
     setIsClicked(true); 
@@ -17,7 +28,7 @@ function Card ({question, answer, hint, isChosen, disabled}) {
           <div className={isChosen ? 'card__flipped' : ''}>
             <div className='card__front'>
               <p className='card__question'>{question}</p>
-              <button className='button card__answer-button' onClick={handleAnswerCheck}>Check the answer</button>
+              <button className={showCheckAnswer ? 'button card__answer-button' : 'button card__answer-button card__answer-button_hidden'} onClick={handleAnswerCheck}>Check the answer</button>
               <div className={!isClicked ? 'card__answer' : 'card__answer_active'}> 
                 <p className='card__answer-answer'>{answer}</p>
                 <p className='card__answer-hint'>{hint}</p>
