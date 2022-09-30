@@ -1,0 +1,23 @@
+.tooltip__answerCheck {
+  margin: 0;
+}
+
+.tooltip__answerButtonWrapper {
+  justify-content: center;
+  display: flex;
+  gap: 5px;
+}
+
+.tooltip__answerButton {
+  margin-top: 10px;
+  width: 129px;
+  background: black;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 18px;
+  height: 50px;
+  line-height: 22px;
+  padding: 0;
+  text-align: center;
+}

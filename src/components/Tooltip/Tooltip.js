@@ -1,12 +1,12 @@
 import React from 'react';
 import './Tooltip.css';
 
-function Tooltip({ isOpen, onClose, children }) {
+function Tooltip({ isOpen, children }) {
 
   return (
     <section className={`popup ${isOpen && "popup_opened"}`} >
       <figure className="tooltip__container">
-        <button onClick={onClose} type="button" className="popup__close"></button>
+
         {children}
       </figure>
     </section>

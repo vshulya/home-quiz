@@ -1,0 +1,134 @@
+.nav {
+  align-items: center;
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 940px) {
+  .nav {
+    padding: 18px 30px;
+    display: flex;
+    flex-direction: space-between;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .nav {
+    padding: 15px 14px;
+    display: flex;
+    flex-direction: space-between;
+  }
+}
+
+
+.nav__menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav__button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0;
+  text-align: center;
+}
+
+.chevron {
+  padding-right: 5px;
+}
+
+.chevron::before {
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  content: '';
+  display: inline-block;
+  height: 0.45em;
+  left: 0.15em;
+  position: relative;
+  top: 8px;
+  transform: rotate(-45deg);
+  vertical-align: top;
+  width: 0.45em;
+}
+
+.chevron.bottom:before {
+  top: 2px;
+  transform: rotate(135deg);
+}
+
+
+.slidingPane__content {
+  background-color: black;
+  min-height: 320px;
+  border-bottom: 2px solid white;
+}
+
+@media screen and (max-width: 540px) {
+  .slidingPane__menu {
+    width: 100vw;
+  }
+}
+
+.slidingPane__menu_active {
+  visibility: visible;
+}
+
+.slidingPane__close-button {
+  background-image: url(../../images/close-icon.svg);
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: 22px;
+  width: 100%;
+  height: 22px;
+  border: none;
+  position: absolute;
+  right: 23px;
+  top: 23px;
+  transition: .3s;
+}
+
+.slidingPane__close-button:hover {
+  opacity: 0.8;
+}
+
+
+.slidingPane__description {
+  padding: 0;
+}
+
+.slide-pane__content {
+  position: relative;
+  overflow-y: auto;
+  padding: 24px 32px;
+  flex: 1 1 auto;
+  background: black;
+  border-top: 2px solid white;
+}
+
+.slide-pane_from_bottom.content-after-open {
+  transform: translateY(0%);
+  height: 20vh;
+  margin-top: 80vh;
+}
+
+.slide-pane_from_bottom {
+  height: 20vh;
+  margin-top: 80vh;
+  transform: translateY(100%);
+}
+
+.slide-pane {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  min-width: 100px;
+  height: 100%;
+  box-shadow: none;
+  transition: transform 0.5s;
+  will-change: transform;
+}

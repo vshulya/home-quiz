@@ -3,7 +3,7 @@ import './Card.css';
 import cover from '../../images/cover.jpg';
 
 
-function Card ({question, answer, hint, isChosen, disabled, isTimeForAnswer}) {
+function Card ({question, answer, hint, isChosen, disabled, isTimeForAnswer, setIsTooltipRightWrongOpen, getQuestionMobile}) {
 
   const [isClicked, setIsClicked] = useState(false);
   const [showCheckAnswer, setShowCheckAnswer] = useState(false);
@@ -20,6 +20,9 @@ function Card ({question, answer, hint, isChosen, disabled, isTimeForAnswer}) {
 
   const handleAnswerCheck = () => {
     setIsClicked(true); 
+    setTimeout(() => {
+      setIsTooltipRightWrongOpen(true);
+    }, 2000); 
   }
 
     return (

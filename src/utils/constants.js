@@ -1,3 +1,9 @@
+export const DESKTOP_WIDTH = 1280;
+
+export const TABLET_WIDTH = 768;
+
+export const MOBILE_WIDTH = 480;
+
 export const initialQuestions = [
   { 
     question: 'A few years ago, the basketball player Marcus Morris had a son. After that, Morris added to his playing kit… what did he add on his kit?', 
