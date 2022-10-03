@@ -2,6 +2,7 @@
   position: relative;
   max-width: 200px;
   width: 100%;
+  margin: auto;
 }
 
 @media screen and (max-width: 940px) {
@@ -15,6 +16,7 @@
     max-width: 160px;
   }
 }
+
 
 .card .card__front {
   transform: rotateY(90deg);
@@ -119,8 +121,6 @@
   font-size: 11px;
   padding: 0;
 }
-
-
 
 .card__disabled .card__cover {
   opacity: .4;

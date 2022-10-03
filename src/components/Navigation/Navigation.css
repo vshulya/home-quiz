@@ -1,29 +1,24 @@
 .nav {
   align-items: center;
   padding-top: 20px;
+  width: 80%;
 }
 
 @media screen and (max-width: 940px) {
   .nav {
     padding: 18px 30px;
-    display: flex;
-    flex-direction: space-between;
   }
 }
 
 @media screen and (max-width: 540px) {
   .nav {
     padding: 15px 14px;
-    display: flex;
-    flex-direction: space-between;
   }
 }
-
 
 .nav__menu {
   display: flex;
   justify-content: space-between;
-  width: 100%;
 }
 
 .nav__button {

@@ -35,12 +35,12 @@ function Main() {
 
   //open winning modal if player or game gets max points
   useEffect(() => {
-    if (playerScore === 2) {
+    if (playerScore === 5 ) {
       setTimeout(() => {
         setIsScoreTooltipOpen(true);
         setIsPlayerSucceed(true);
       }, 2000);
-    } else if (gameScore === 2) {
+    } else if (gameScore === 5) {
       setTimeout(() => {
         setIsScoreTooltipOpen(true);
         setIsPlayerSucceed(false);
@@ -88,16 +88,20 @@ function Main() {
   }
 
   const getQuestion = () => {
-    const question = Math.floor(Math.random() * cards.length);
+    //const filterShortFilm = (moviesToFilter) => moviesToFilter.filter((item) => item.duration <= 40);
+    const notDisabledCards = cards.filter((c, i)=>disabledCardsList.indexOf(i) == -1);
+    console.log("notDisabledCards", notDisabledCards)
+    debugger
+    const question = Math.floor(Math.random()* notDisabledCards.length) ;
+    console.log(question);
     setChosenCardIdx(question);
     setSeconds(3);
     setIsTimerActive(true);
     setIsTimeForAnswer(false);
+
   }
 
-  //TODO another variant for mobile version?
-
-  // const windowSizePC = window.innerWidth > TABLET_WIDTH;
+  const windowSizeMobile = window.innerWidth < MOBILE_WIDTH;
 
   // const getQuestionMobile = () => {
   //   const question = Math.floor(Math.random() * cards.length);
@@ -106,8 +110,6 @@ function Main() {
   //   setIsTimerActive(true);
   //   setIsTimeForAnswer(false);
   // }
-
-
 
   const handleGameScore = () => {
     const index = chosenCardIdx;
@@ -120,6 +122,7 @@ function Main() {
     const index = chosenCardIdx;
     setPlayerScore(prevPlScore => prevPlScore + 1);
     const updatedDisabledCardsList = [...disabledCardsList, index];
+    debugger
     setDisabledCardsList(updatedDisabledCardsList);
   }
 
@@ -132,6 +135,7 @@ function Main() {
     setTimeout(() => {
       handlePlayerScore();
       setIsAnswerTooltipOpen(false);
+      setChosenCardIdx(-1);
     }, 1500);
   }
 
@@ -144,6 +148,7 @@ function Main() {
     setTimeout(() => {
       handleGameScore();
       setIsAnswerTooltipOpen(false);
+      setChosenCardIdx(-1);
     }, 1500);
   }
 
@@ -161,10 +166,11 @@ function Main() {
         seconds={seconds}
         isTimeForAnswer={isTimeForAnswer}
       />
-      <div className='main__grid'> {
+      <div className={windowSizeMobile ? 'main__deck' : 'main__grid'}> {
         cards.map((card, index) => (
           <Card
             key={index}
+            cardIndex={index}
             card={card}
             question={card.question}
             answer={card.answer}
@@ -173,8 +179,10 @@ function Main() {
             disabled={isDisabled(index)}
             isTimeForAnswer={isTimeForAnswer}
             setIsTooltipRightWrongOpen={setIsTooltipRightWrongOpen}
+            windowSizeMobile={windowSizeMobile}
           />
         ))}
+
       </div>
       <Navigation
         shuffleQuestions={shuffleQuestions} />
