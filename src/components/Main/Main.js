@@ -24,6 +24,8 @@ function Main() {
   const [isPlayerAnswerRight, setIsPlayerAnswerRight] = useState(false);
   const [isTooltipRightWrongOpen, setIsTooltipRightWrongOpen] = useState(false);
 
+  const timerMult = 1;
+
   const isDisabled = (testCardIdx) => disabledCardsList.some(disabledCardIdx => {
     return testCardIdx === disabledCardIdx;
   });
@@ -35,16 +37,16 @@ function Main() {
 
   //open winning modal if player or game gets max points
   useEffect(() => {
-    if (playerScore === 5 ) {
+    if (playerScore === 2 ) {
       setTimeout(() => {
         setIsScoreTooltipOpen(true);
         setIsPlayerSucceed(true);
       }, 2000);
-    } else if (gameScore === 5) {
+    } else if (gameScore === 2) {
       setTimeout(() => {
         setIsScoreTooltipOpen(true);
         setIsPlayerSucceed(false);
-      }, 2000);
+      }, 2000*timerMult);
     }
   }, [playerScore, gameScore])
 
@@ -54,7 +56,7 @@ function Main() {
     if (isTimerActive) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds - 1);
-      }, 1000);
+      }, 1000*timerMult);
     } else if (!isTimerActive && seconds !== 0) {
       clearInterval(interval);
     }
@@ -71,7 +73,7 @@ function Main() {
     if (seconds === 0) {
       setTimeout(() => {
         setIsTimeForAnswer(true);
-      }, 1000);
+      }, 1000*timerMult);
     }
   }, [isTimerActive])
 
@@ -89,68 +91,53 @@ function Main() {
 
   const getQuestion = () => {
     //const filterShortFilm = (moviesToFilter) => moviesToFilter.filter((item) => item.duration <= 40);
-    const notDisabledCards = cards.filter((c, i)=>disabledCardsList.indexOf(i) == -1);
+    //const notDisabledCards = (cards) => cards.filter((i)=> i.index === disabledCardsList.some(disabledCardIdx));
+    const notDisabledCards = cards.filter((value, i) => 
+    {
+      return  disabledCardsList.indexOf(i) == -1;
+    });
+    //console.log("notDisabledCards", notDisabledCards)
+
+    //const notDisabledCards = cards.filter((i) => disabledCardsList.includes(i));
+    console.log("disabledCardsList", disabledCardsList)
+    console.log("cards", cards)
     console.log("notDisabledCards", notDisabledCards)
-    debugger
-    const question = Math.floor(Math.random()* notDisabledCards.length) ;
-    console.log(question);
-    setChosenCardIdx(question);
-    setSeconds(3);
+    const notDisabledCardIndex = Math.floor(Math.random()* notDisabledCards.length) ;
+    console.log(notDisabledCardIndex);
+    setChosenCardIdx(cards.findIndex((c)=>c.question == notDisabledCards[notDisabledCardIndex].question));
+    setSeconds(3*timerMult);
     setIsTimerActive(true);
     setIsTimeForAnswer(false);
-
+    // const updatedDisabledCardsList = [...disabledCardsList, index];
+    // setDisabledCardsList(updatedDisabledCardsList);
+    // console.log("disabledCardsList", disabledCardsList)
   }
 
   const windowSizeMobile = window.innerWidth < MOBILE_WIDTH;
 
-  // const getQuestionMobile = () => {
-  //   const question = Math.floor(Math.random() * cards.length);
-  //   setChosenCardIdx(question);
-  //   setSeconds(3);
-  //   setIsTimerActive(true);
-  //   setIsTimeForAnswer(false);
-  // }
-
-  const handleGameScore = () => {
+  const handleScore = (playerWin=false) => {
     const index = chosenCardIdx;
-    setGameScore(prevGScore => prevGScore + 1);
+    if(playerWin) setPlayerScore(prevPlScore => prevPlScore + 1);
+    else setGameScore(prevGScore => prevGScore + 1);
     const updatedDisabledCardsList = [...disabledCardsList, index];
     setDisabledCardsList(updatedDisabledCardsList);
+    console.log("disabledCardsList", disabledCardsList)
   }
 
-  const handlePlayerScore = () => {
-    const index = chosenCardIdx;
-    setPlayerScore(prevPlScore => prevPlScore + 1);
-    const updatedDisabledCardsList = [...disabledCardsList, index];
-    debugger
-    setDisabledCardsList(updatedDisabledCardsList);
-  }
-
-  const handleRightAnswer = () => {
+  const handleAnswer = (playerWin=false) => {
     if (!isTooltipRightWrongOpen) return;
     setIsTimeForAnswer(false);
-    setIsPlayerAnswerRight(true);
+    if(playerWin) setIsPlayerAnswerRight(true);
+    else setIsPlayerAnswerRight(false);
     setIsTooltipRightWrongOpen(false);
     setIsAnswerTooltipOpen(true);
     setTimeout(() => {
-      handlePlayerScore();
+      handleScore(playerWin);
       setIsAnswerTooltipOpen(false);
       setChosenCardIdx(-1);
-    }, 1500);
+    }, 1500*timerMult);
   }
 
-  const handleWrongAnswer = () => {
-    if (!isTooltipRightWrongOpen) return;
-    setIsTimeForAnswer(false);
-    setIsPlayerAnswerRight(false);
-    setIsTooltipRightWrongOpen(false);
-    setIsAnswerTooltipOpen(true);
-    setTimeout(() => {
-      handleGameScore();
-      setIsAnswerTooltipOpen(false);
-      setChosenCardIdx(-1);
-    }, 1500);
-  }
 
   useEffect(() => {
     shuffleQuestions();
@@ -197,8 +184,7 @@ function Main() {
       />
       <TooltipRightWrong
         isOpen={isTooltipRightWrongOpen}
-        handleRightAnswer={handleRightAnswer}
-        handleWrongAnswer={handleWrongAnswer}
+        handleAnswer={handleAnswer}
       />
     </div>
   );

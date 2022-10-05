@@ -25,9 +25,8 @@ function Card({ question, answer, hint, isChosen, disabled, isTimeForAnswer, set
     }, 2000);
   }
 
-
   return (
-    <div className = 'card'
+    <div className='card'
       style={windowSizeMobile ? {
         "position": 'absolute',
         "top": "20px",

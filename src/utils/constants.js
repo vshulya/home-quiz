@@ -30,7 +30,7 @@ export const initialQuestions = [
     answer: 'Sr.',
     hint: 'His son - Marcus Morris, Jr.'
   },
-  { 
+/*  { 
     question: '5', 
     answer: 'Kissing a girl',
     hint: 'This is a game in the genre of alternative history. Episodes of the trailer refer to famous photographs: only instead of the Beatles, the Germans cross Abbey Road, the flag is on the moon, and the soldier of the victorious side, being not in Times Square, but in Paris Square, kisses an unfamiliar girl.'
@@ -64,5 +64,5 @@ export const initialQuestions = [
     question: '11', 
     answer: 'Kissing a girl',
     hint: 'This is a game in the genre of alternative history. Episodes of the trailer refer to famous photographs: only instead of the Beatles, the Germans cross Abbey Road, the flag is on the moon, and the soldier of the victorious side, being not in Times Square, but in Paris Square, kisses an unfamiliar girl.'
-  },
+  },*/
 ];
