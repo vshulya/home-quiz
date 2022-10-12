@@ -30,7 +30,7 @@ function Main() {
     return testCardIdx === disabledCardIdx;
   });
 
-  const closeAllTooltip = () => {
+  const restartGame = () => {
     setIsScoreTooltipOpen(false);
     shuffleQuestions();
   }
@@ -90,30 +90,24 @@ function Main() {
   }
 
   const getQuestion = () => {
-    //const filterShortFilm = (moviesToFilter) => moviesToFilter.filter((item) => item.duration <= 40);
-    //const notDisabledCards = (cards) => cards.filter((i)=> i.index === disabledCardsList.some(disabledCardIdx));
     const notDisabledCards = cards.filter((value, i) => 
     {
       return  disabledCardsList.indexOf(i) == -1;
     });
-    //console.log("notDisabledCards", notDisabledCards)
 
-    //const notDisabledCards = cards.filter((i) => disabledCardsList.includes(i));
-    console.log("disabledCardsList", disabledCardsList)
-    console.log("cards", cards)
-    console.log("notDisabledCards", notDisabledCards)
+    // console.log("disabledCardsList", disabledCardsList)
+    // console.log("cards", cards)
+    // console.log("notDisabledCards", notDisabledCards)
     const notDisabledCardIndex = Math.floor(Math.random()* notDisabledCards.length) ;
     console.log(notDisabledCardIndex);
     setChosenCardIdx(cards.findIndex((c)=>c.question == notDisabledCards[notDisabledCardIndex].question));
     setSeconds(3*timerMult);
     setIsTimerActive(true);
     setIsTimeForAnswer(false);
-    // const updatedDisabledCardsList = [...disabledCardsList, index];
-    // setDisabledCardsList(updatedDisabledCardsList);
-    // console.log("disabledCardsList", disabledCardsList)
   }
 
-  const windowSizeMobile = window.innerWidth < MOBILE_WIDTH;
+  //change grid or deck depends on window size
+  const windowSizeMobile = window.innerWidth <= TABLET_WIDTH;
 
   const handleScore = (playerWin=false) => {
     const index = chosenCardIdx;
@@ -148,7 +142,6 @@ function Main() {
       <h1 className='main__title'>Game vs You</h1>
       <p className='main__score'>Score: {gameScore} : {playerScore}</p>
       <button className='button main__buttonNewQuestion' disabled={isTimeForAnswer || isTimerActive} onClick={getQuestion}>Choose the question</button>
-      {/* <button className={windowSizePC ? 'main__buttonNewQuestion' : 'main__buttonNewQuestion_hidden'} disabled={isTimeForAnswer || isTimerActive} onClick={getQuestion}>Choose the question</button> */}
       <Timer
         seconds={seconds}
         isTimeForAnswer={isTimeForAnswer}
@@ -174,7 +167,7 @@ function Main() {
       <Navigation
         shuffleQuestions={shuffleQuestions} />
       <ScoreTooltip
-        onClose={closeAllTooltip}
+        onClose={restartGame}
         isOpen={isScoreTooltipOpen}
         isPlayerSucceed={isPlayerSucceed}
       />

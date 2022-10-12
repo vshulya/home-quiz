@@ -1,7 +1,10 @@
 .nav {
   align-items: center;
-  padding-top: 20px;
-  width: 80%;
+  padding: 20px 0;
+  max-width: 880px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
 @media screen and (max-width: 940px) {
@@ -107,8 +110,22 @@
 
 .slide-pane_from_bottom.content-after-open {
   transform: translateY(0%);
-  height: 20vh;
-  margin-top: 80vh;
+  height: 30vh;
+  margin-top: 70vh;
+}
+
+@media screen and (max-width: 940px) {
+  .slide-pane_from_bottom.content-after-open {
+    height: 50vh;
+    margin-top: 50vh;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .slide-pane_from_bottom.content-after-open {
+    height: 80vh;
+    margin-top: 20vh;
+  }
 }
 
 .slide-pane_from_bottom {
