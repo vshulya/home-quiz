@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './Main.css';
 import Card from '../Card/Card';
 import { initialQuestions } from '../../utils/constants';
-import { DESKTOP_WIDTH, TABLET_WIDTH, MOBILE_WIDTH } from '../../utils/constants';
+import { TABLET_WIDTH} from '../../utils/constants';
 import Timer from '../Timer/Timer';
 import ScoreTooltip from '../ScoreTooltip/ScoreTooltip';
 import AnswerTooltip from '../AnswerTooltip/AnswerTooltip';
 import Navigation from '../Navigation/Navigation';
 import TooltipRightWrong from '../TooltipRightWrong/TooltipRightWrong';
 
-function Main() {
+function Main({ allCards, onCardAdd}) {
   const [gameScore, setGameScore] = useState(0);
   const [playerScore, setPlayerScore] = useState(0);
   const [cards, setCards] = useState([]);
@@ -78,6 +78,7 @@ function Main() {
   }, [isTimerActive])
 
   const shuffleQuestions = () => {
+    debugger
     const shuffledCards = [...initialQuestions]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
@@ -165,7 +166,8 @@ function Main() {
 
       </div>
       <Navigation
-        shuffleQuestions={shuffleQuestions} />
+        shuffleQuestions={shuffleQuestions}
+        onCardAdd={onCardAdd}/>
       <ScoreTooltip
         onClose={restartGame}
         isOpen={isScoreTooltipOpen}

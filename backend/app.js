@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('./middlewares/cors');
 
 
 const {
@@ -12,6 +13,8 @@ const { PORT = 3002 } = process.env;
 
 const app = express(); 
 app.use(express.json());
+
+app.use(cors);
 
 app.get('/cards', getCards);
 app.post('/cards', createCard);

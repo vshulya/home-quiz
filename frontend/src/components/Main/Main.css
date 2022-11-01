@@ -31,16 +31,14 @@
   position: absolute;
   top: 40%;
   left: 0;
-  transform: translate(-88px, -50%);
+  transform: translate(-9%, -50%);
 }
 
-/* @media screen and (max-width: 560px) {
+@media screen and (max-width: 560px) {
   .main__deck {
-    top: 40%;
-    left: 27%;
-    transform: translate(-50%, -50%);
+ transform: translate(-15%, -50%);
   }
-} */
+}
 
 .main__title {
   margin: 0 auto;

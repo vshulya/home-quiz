@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import './Navigation.css';
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 //import SlidingPaneModal from '../SlidingPaneModal/SlidingPaneModal'
 
-function Navigation({ shuffleQuestions }) {
+function Navigation({ shuffleQuestions, onCardAdd }) {
 
 	const [isSlidingPaneOpen, setIsSlidingPaneOpen] = useState(false);
 
@@ -20,7 +20,10 @@ function Navigation({ shuffleQuestions }) {
 		<div className="nav">
 			<nav className="nav__menu">
 				<button onClick={openSlidingPane} className="nav__button button"><span class="chevron"></span>About</button>
-				<button className='button nav__button' onClick={shuffleQuestions}>Next game</button>
+				<div className="nav__buttons">
+					{/* <button className='button nav__button' onClick={onCardAdd}>Add the question</button> */}
+					<button className='button nav__button' onClick={shuffleQuestions}>Next game</button>
+				</div>
 			</nav>
 			<SlidingPane
 				isOpen={isSlidingPaneOpen}
